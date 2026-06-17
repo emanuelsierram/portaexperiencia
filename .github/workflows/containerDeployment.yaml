@@ -1,0 +1,26 @@
+name: Backend CI/CD Portex
+
+on:
+  push:
+    branches: [ "main" ] # Se ejecutará cada vez que hagas push a la rama main
+
+env:
+  IMAGE_BASE_NAME: emanuelsierra17/portex-backend 
+
+jobs:
+  construir_imagen:
+    runs-on: ubuntu-latest # GitHub nos presta una máquina virtual con Linux temporalmente
+
+    steps:
+      # Paso 1: Descargar tu código fuente a la máquina virtual de GitHub
+      - name: Descargar el código (Checkout)
+        uses: actions/checkout@v4
+        
+      # Paso 2: Mostrar los archivos para asegurarnos de que todo descargó bien
+      - name: Listar archivos
+        run: ls -a
+        
+      # Paso 3: Construir la imagen usando tu Dockerfile
+      - name: Construir la imagen de Docker
+        run: |
+          docker build -t ${{ env.IMAGE_BASE_NAME }} .
