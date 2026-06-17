@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Tu aplicación Spring Boot
+  backend-app:
+    build: .
+    container_name: portex-backend
+    ports:
+      - "8080:8080"
+    environment:
+      # Sobrescribimos las variables del application.properties para que apunte al contenedor de MySQL
+      - SPRING_DATASOURCE_JDBCURL=jdbc:mysql://mysql-db:3306/portafolio?createDatabaseIfNotExist=true&allowMultiQueries=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=sasa
+    depends_on:
+      - mysql-db
+    networks:
+      - portex-network
+
+  # Base de datos MySQL
+  mysql-db:
+    image: mysql:8.0
+    container_name: portex-mysql
+    environment:
+      - MYSQL_DATABASE=portafolio
+      - MYSQL_ROOT_PASSWORD=sasa
+    ports:
+      - "3307:3306"
+    volumes:
+      # Volumen para que los datos persistan aunque se apague el contenedor
+      - mysql_data:/var/lib/mysql
+    networks:
+      - portex-network
+
+networks:
+  portex-network:
+    driver: bridge
+
+volumes:
+  mysql_data:

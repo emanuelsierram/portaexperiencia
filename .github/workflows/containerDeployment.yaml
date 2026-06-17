@@ -2,25 +2,34 @@ name: Backend CI/CD Portex
 
 on:
   push:
-    branches: [ "main" ] # Se ejecutará cada vez que hagas push a la rama main
+    branches: [ "main" ]
 
 env:
-  IMAGE_BASE_NAME: emanuelsierra17/portex-backend 
+  # OJO: Cambia "miusuario" por tu nombre de usuario real en Docker Hub
+  IMAGE_BASE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/portex-backend 
 
 jobs:
-  construir_imagen:
-    runs-on: ubuntu-latest # GitHub nos presta una máquina virtual con Linux temporalmente
+  construir_y_publicar:
+    runs-on: ubuntu-latest
 
     steps:
-      # Paso 1: Descargar tu código fuente a la máquina virtual de GitHub
+      # Paso 1: Descargar el código fuente
       - name: Descargar el código (Checkout)
         uses: actions/checkout@v4
         
-      # Paso 2: Mostrar los archivos para asegurarnos de que todo descargó bien
-      - name: Listar archivos
-        run: ls -a
-        
-      # Paso 3: Construir la imagen usando tu Dockerfile
+      # Paso 3: Construir la imagen de Docker (etiquetándola como 'latest')
       - name: Construir la imagen de Docker
         run: |
-          docker build -t ${{ env.IMAGE_BASE_NAME }} .
+          docker build -t ${{ env.IMAGE_BASE_NAME }}:latest .
+
+      # Paso 4: Iniciar sesión en Docker Hub usando las variables secretas de GitHub
+      - name: Iniciar sesión en Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Paso 5: Subir (push) la imagen a tu repositorio en Docker Hub
+      - name: Subir imagen a Docker Hub
+        run: |
+          docker push ${{ env.IMAGE_BASE_NAME }}:latest
