@@ -2,7 +2,7 @@ name: Backend CI/CD Portex
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 env:
   # OJO: Cambia "miusuario" por tu nombre de usuario real en Docker Hub
