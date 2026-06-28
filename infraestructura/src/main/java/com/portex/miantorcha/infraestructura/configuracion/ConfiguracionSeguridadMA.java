@@ -14,7 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@Order(1) // Prioridad alta para que evalúe sus rutas primero
 public class ConfiguracionSeguridadMA {
 
     private final JwtCustomFilter jwtCustomFilter;
@@ -24,6 +23,7 @@ public class ConfiguracionSeguridadMA {
     }
 
     @Bean
+    @Order(1) // Prioridad alta para que evalúe sus rutas primero
     public SecurityFilterChain filterChainAntorcha(HttpSecurity http) throws Exception {
         http
                 // Indicamos que esta cadena SOLO aplica para las rutas de Mi Antorcha

@@ -27,5 +27,5 @@ COPY --from=build /app/build/libs/*-SNAPSHOT.jar app.jar
 # Exponemos el puerto por el que escucha tu backend
 EXPOSE 8080
 
-# Comando para ejecutar la aplicación
+# Comando para ejecutar la aplicación (Se puede Poner perfil de producción)
 ENTRYPOINT ["java", "-jar", "app.jar"]
