@@ -3,6 +3,7 @@ package com.portex.miexperiencia.infraestructura.configuracion;
 import com.portex.compartido.infraestructura.seguridad.jwt.JwtCustomFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
@@ -26,6 +27,7 @@ public class ConfiguracionSeguridad{
     }
 
     @Bean
+    @Order(2) 
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
