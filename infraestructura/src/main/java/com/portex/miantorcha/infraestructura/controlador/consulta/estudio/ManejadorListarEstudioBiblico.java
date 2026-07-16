@@ -16,7 +16,7 @@ public class ManejadorListarEstudioBiblico {
     }
 
     // Consulta: "mirar mi estudio biblico actual"
-    public List<DtoEstudioBiblico> consultarActualesPorMiembro(String idUsuarioAsignado) {
+    public List<DtoEstudioBiblico> consultarActualesPorMiembro(Long idUsuarioAsignado) {
         return this.daoEstudioBiblico.consultarActualesPorMiembro(idUsuarioAsignado);
     }
 

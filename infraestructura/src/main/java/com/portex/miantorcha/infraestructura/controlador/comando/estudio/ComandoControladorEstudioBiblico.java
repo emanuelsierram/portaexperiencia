@@ -14,7 +14,7 @@ public class ComandoControladorEstudioBiblico {
     }
 
     @PostMapping
-    public ComandoRespuesta<String> crear(@RequestBody ComandoEstudioBiblico comando) {
+    public ComandoRespuesta<Long> crear(@RequestBody ComandoEstudioBiblico comando) {
         return this.manejadorCrearEstudioBiblico.ejecutar(comando);
     }
 }

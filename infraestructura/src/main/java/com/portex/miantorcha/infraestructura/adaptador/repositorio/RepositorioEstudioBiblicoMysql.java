@@ -17,17 +17,14 @@ public class RepositorioEstudioBiblicoMysql implements RepositorioEstudioBiblico
 
     @Override
     public void crear(EstudioBiblico estudioBiblico) {
-        // Los nombres de los parámetros (:id, :nombrePersona) deben coincidir exactamente con
-        // los nombres de los atributos/getters en la clase EstudioBiblico.
-        String sql = "INSERT INTO estudio_biblico (id, nombre_persona, telefono_persona, direccion_persona, estado, leccion, id_usuario_asignado, persona_que_reporta, id_grupo) " +
-                "VALUES (:id, :nombrePersona, :telefonoPersona, :direccionPersona, :estado, :leccion, :idUsuarioAsignado, :personaQueReporta, :idGrupo)";
-
+        String sql = "INSERT INTO mi_antorcha.estudio_biblico (nombre_persona, telefono_persona, direccion_persona, estado, leccion, id_usuario_asignado, persona_que_reporta, id_grupo) " +
+                "VALUES (:nombrePersona, :telefonoPersona, :direccionPersona, :estado, :leccion, :idUsuarioAsignado, :personaQueReporta, :idGrupo)";
         this.jdbcTemplate.crear(estudioBiblico, sql);
     }
 
     @Override
     public void actualizar(EstudioBiblico estudioBiblico) {
-        String sql = "UPDATE estudio_biblico SET nombre_persona = :nombrePersona, telefono_persona = :telefonoPersona, " +
+        String sql = "UPDATE mi_antorcha.estudio_biblico SET nombre_persona = :nombrePersona, telefono_persona = :telefonoPersona, " +
                 "direccion_persona = :direccionPersona, estado = :estado, leccion = :leccion, " +
                 "id_usuario_asignado = :idUsuarioAsignado, persona_que_reporta = :personaQueReporta, id_grupo = :idGrupo " +
                 "WHERE id = :id";
@@ -36,21 +33,18 @@ public class RepositorioEstudioBiblicoMysql implements RepositorioEstudioBiblico
     }
 
     @Override
-    public void eliminar(String id) {
-        String sql = "DELETE FROM estudio_biblico WHERE id = :id";
+    public void eliminar(Long id) {
+        String sql = "DELETE FROM mi_antorcha.estudio_biblico WHERE id = :id";
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("id", id);
-
         this.jdbcTemplate.getNamedParameterJdbcTemplate().update(sql, parametros);
     }
 
     @Override
-    public int contarLeccionesPorPersona(String nombrePersona, String telefonoPersona) {
-        String sql = "SELECT COUNT(*) FROM historico_lecciones WHERE nombre_persona = :nombrePersona AND telefono_persona = :telefonoPersona";
+    public int contarLeccionesPorEstudio(Long idEstudioBiblico) {
+        String sql = "SELECT COUNT(*) FROM mi_antorcha.historico_lecciones WHERE id_estudio_biblico = :idEstudioBiblico";
         MapSqlParameterSource parametros = new MapSqlParameterSource();
-        parametros.addValue("nombrePersona", nombrePersona);
-        parametros.addValue("telefonoPersona", telefonoPersona);
-
+        parametros.addValue("idEstudioBiblico", idEstudioBiblico);
         Integer cantidad = this.jdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sql, parametros, Integer.class);
         return cantidad != null ? cantidad : 0;
     }

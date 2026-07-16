@@ -11,16 +11,15 @@ public class MapeoEstudioBiblico implements RowMapper<DtoEstudioBiblico> {
     @Override
     public DtoEstudioBiblico mapRow(ResultSet rs, int rowNum) throws SQLException {
         DtoEstudioBiblico dto = new DtoEstudioBiblico();
-        dto.setId(rs.getString("id"));
+        dto.setId(rs.getLong("id"));
         dto.setNombrePersona(rs.getString("nombre_persona"));
         dto.setTelefonoPersona(rs.getString("telefono_persona"));
         dto.setDireccionPersona(rs.getString("direccion_persona"));
         dto.setEstado(rs.getString("estado"));
         dto.setLeccion(rs.getObject("leccion", Integer.class));
-        dto.setIdUsuarioAsignado(rs.getString("id_usuario_asignado"));
         dto.setPersonaQueReporta(rs.getString("persona_que_reporta"));
-        dto.setIdGrupo(rs.getString("id_grupo"));
-
+        dto.setIdUsuarioAsignado(rs.getObject("id_usuario_asignado", Long.class));
+        dto.setIdGrupo(rs.getObject("id_grupo", Long.class));
         return dto;
     }
 }

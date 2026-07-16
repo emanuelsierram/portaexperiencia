@@ -14,3 +14,23 @@ CREATE TABLE mi_antorcha.miembros (
   fecha_actualizacion DATETIME NOT NULL,
   PRIMARY KEY (id_miembro)
 );
+
+CREATE TABLE mi_antorcha.estudio_biblico (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre_persona VARCHAR(100) NOT NULL,
+    telefono_persona VARCHAR(20),
+    direccion_persona VARCHAR(150) NOT NULL,
+    estado VARCHAR(20) NOT NULL,
+    leccion INT,
+    id_usuario_asignado BIGINT,
+    persona_que_reporta VARCHAR(100),
+    id_grupo BIGINT
+);
+
+CREATE TABLE mi_antorcha.historico_lecciones (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    contador_semana INT NOT NULL,
+    id_estudio_biblico BIGINT NOT NULL,
+    fecha_estudio DATETIME NOT NULL,
+    id_actividad BIGINT NOT NULL
+);

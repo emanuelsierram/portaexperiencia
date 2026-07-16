@@ -15,11 +15,8 @@ public class ManejadorCrearEstudioBiblico {
         this.servicioCrearEstudioBiblico = servicioCrearEstudioBiblico;
     }
 
-    public ComandoRespuesta<String> ejecutar(ComandoEstudioBiblico comando) {
-        // Ejecutamos la lógica de negocio y persistencia
+    public ComandoRespuesta<Long> ejecutar(ComandoEstudioBiblico comando) {
         this.servicioCrearEstudioBiblico.ejecutar(this.fabricaEstudioBiblico.crear(comando));
-
-        // Retornamos la respuesta estándar de tu arquitectura
         return new ComandoRespuesta<>(comando.getId());
     }
 }

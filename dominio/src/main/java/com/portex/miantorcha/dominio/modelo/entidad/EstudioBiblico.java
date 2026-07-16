@@ -8,20 +8,20 @@ import lombok.Setter;
 @Setter
 public class EstudioBiblico {
 
-    private final String id;
-    private final String nombrePersona;
-    private final String telefonoPersona;
-    private final String direccionPersona;
-    private final String estado;
+    private Long id;
+    private String nombrePersona;
+    private String telefonoPersona;
+    private String direccionPersona;
+    private String estado;
     private Integer leccion; // Campo calculado (1-20)
-    private final String idUsuarioAsignado;
-    private final String personaQueReporta;
-    private final String idGrupo;
+    private Long idUsuarioAsignado;
+    private String personaQueReporta;
+    private Long idGrupo;
 
-    public EstudioBiblico(String id, String nombrePersona, String telefonoPersona,
+    public EstudioBiblico(Long id, String nombrePersona, String telefonoPersona,
                           String direccionPersona, String estado,
-                          String idUsuarioAsignado, String personaQueReporta,
-                          String idGrupo) {
+                          Long idUsuarioAsignado, String personaQueReporta,
+                          Long idGrupo) {
 
         // Reglas de negocio: Validaciones obligatorias
         ValidadorArgumento.validarObligatorio(nombrePersona, "El nombre de la persona es obligatorio");

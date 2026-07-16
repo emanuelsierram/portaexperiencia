@@ -16,7 +16,7 @@ public class ConsultaControladorEstudioBiblico {
     }
 
     @GetMapping("/actuales/{idUsuarioAsignado}")
-    public List<DtoEstudioBiblico> consultarActualesPorMiembro(@PathVariable String idUsuarioAsignado) {
+    public List<DtoEstudioBiblico> consultarActualesPorMiembro(@PathVariable Long idUsuarioAsignado) {
         return this.manejadorListarEstudioBiblico.consultarActualesPorMiembro(idUsuarioAsignado);
     }
 

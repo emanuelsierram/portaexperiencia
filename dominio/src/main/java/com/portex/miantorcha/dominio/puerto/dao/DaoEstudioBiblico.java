@@ -9,7 +9,7 @@ public interface DaoEstudioBiblico {
      * HU: "mirar mi estudio biblico actual"
      * Devuelve los estudios bíblicos asignados a un miembro (usuario) específico como DTOs.
      */
-    List<DtoEstudioBiblico> consultarActualesPorMiembro(String idUsuarioAsignado);
+    List<DtoEstudioBiblico> consultarActualesPorMiembro(Long idUsuarioAsignado);
 
     /**
      * HU: "mirar todos los estudios bíblicos disponibles con estado por hacer (por dar)"
@@ -20,5 +20,5 @@ public interface DaoEstudioBiblico {
     /**
      * Consulta general de solo lectura.
      */
-    DtoEstudioBiblico consultarPorId(String id);
+    DtoEstudioBiblico consultarPorId(Long id);
 }

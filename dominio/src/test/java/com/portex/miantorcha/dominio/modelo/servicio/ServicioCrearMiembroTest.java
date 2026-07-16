@@ -1,4 +1,4 @@
-package com.portex.miantorcha.servicio;
+package com.portex.miantorcha.dominio.modelo.servicio;
 
 import com.portex.compartido.dominio.excepcion.ExcepcionDuplicidad;
 import com.portex.compartido.dominio.excepcion.ExcepcionValorObligatorio;

@@ -12,14 +12,14 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DtoEstudioBiblico {
 
-    private String id;
+    private Long id;
     private String nombrePersona;
     private String telefonoPersona;
     private String direccionPersona;
     private String estado;
     private Integer leccion;
-    private String idUsuarioAsignado;
+    private Long idUsuarioAsignado;
     private String personaQueReporta;
-    private String idGrupo;
+    private Long idGrupo;
 
 }

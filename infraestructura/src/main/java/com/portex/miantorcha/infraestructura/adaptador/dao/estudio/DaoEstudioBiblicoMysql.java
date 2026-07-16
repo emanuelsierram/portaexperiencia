@@ -18,9 +18,9 @@ public class DaoEstudioBiblicoMysql implements DaoEstudioBiblico {
     }
 
     @Override
-    public List<DtoEstudioBiblico> consultarActualesPorMiembro(String idUsuarioAsignado) {
+    public List<DtoEstudioBiblico> consultarActualesPorMiembro(Long idUsuarioAsignado) {
         // HU: mirar mi estudio biblico actual (asumimos que en curso o por dar)
-        String sql = "SELECT * FROM estudio_biblico WHERE id_usuario_asignado = :idUsuarioAsignado AND estado IN ('por dar', 'en curso')";
+        String sql = "SELECT * FROM mi_antorcha.estudio_biblico WHERE id_usuario_asignado = :idUsuarioAsignado AND estado IN ('por dar', 'en curso')";
 
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("idUsuarioAsignado", idUsuarioAsignado);
@@ -31,14 +31,14 @@ public class DaoEstudioBiblicoMysql implements DaoEstudioBiblico {
     @Override
     public List<DtoEstudioBiblico> consultarDisponiblesPorDar() {
         // HU: mirar todos los estudios bíblicos disponibles con estado por hacer (por dar y no asignados)
-        String sql = "SELECT * FROM estudio_biblico WHERE estado = 'por dar' AND id_usuario_asignado IS NULL";
+        String sql = "SELECT * FROM mi_antorcha.estudio_biblico WHERE estado = 'por dar' AND id_usuario_asignado IS NULL";
 
         return this.jdbcTemplate.getNamedParameterJdbcTemplate().query(sql, new MapeoEstudioBiblico());
     }
 
     @Override
-    public DtoEstudioBiblico consultarPorId(String id) {
-        String sql = "SELECT * FROM estudio_biblico WHERE id = :id";
+    public DtoEstudioBiblico consultarPorId(Long id) {
+        String sql = "SELECT * FROM mi_antorcha.estudio_biblico WHERE id = :id";
 
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("id", id);
