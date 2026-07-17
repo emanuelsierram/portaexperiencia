@@ -24,8 +24,8 @@ public class PedidoTestDataBuilder {
         descripcion="Descripción de prueba";
         estado="solicitado";
         fechaCreacion=LocalDateTime.now();
-        fechaInicio= LocalDateTime.of(2026, 7, 12, 8, 15);
-        fechaFinal= LocalDateTime.of(2026, 10, 11, 8, 15);
+        fechaInicio= LocalDateTime.of(2026, 8, 12, 8, 15);
+        fechaFinal= LocalDateTime.of(2026, 11, 11, 8, 15);
         presupuesto=100.0;
         idCliente=1L;
         idTrabajador=1L;

@@ -1,4 +1,4 @@
-package com.portex.miantorcha.controlador;
+package com.portex.miantorcha.controlador.miembro;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portex.compartido.aplicacion.ComandoRespuesta;
@@ -32,9 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 public class ComandoControladorMiembroTest {
 
-    // Simular un JWT válido (puedes usar el mismo TOKEN_PRUEBA de tus otros tests)
-    private final static String TOKEN_PRUEBA = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzcyI6ImVtYW51ZWxzaWVycmExNyIsImV4cCI6MTczODc3MjMxOCwiaWF0IjoxNzM3NDc2MzE4fQ._K1yF6uMbzBiDCoGnhMdcgCTsO67HwV1W1duZ0v6S7Q";
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -60,7 +57,6 @@ public class ComandoControladorMiembroTest {
         // Act & Assert
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/miembros")
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + TOKEN_PRUEBA)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(comando)))
                 .andExpect(status().isOk())

@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ConsultaControladorTrabajador.class)
 @ContextConfiguration(classes= ApplicationMock.class)
@@ -32,7 +31,6 @@ public class ConsultaControladorServicioTest {
 
     private String tokenPrueba;
 
-    private final static String CEDULA="12350407178";
     @Autowired
     private MockMvc mockMvc;
 
@@ -52,10 +50,6 @@ public class ConsultaControladorServicioTest {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].nombre", is("Mantenimiento de PC")));
     }
-
-
-
-
 
     @Test
     public void consultarServiciosPorTrabajador() throws Exception {
