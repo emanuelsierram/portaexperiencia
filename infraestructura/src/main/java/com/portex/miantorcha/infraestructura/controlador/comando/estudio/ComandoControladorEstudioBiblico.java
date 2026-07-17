@@ -8,13 +8,20 @@ import org.springframework.web.bind.annotation.*;
 public class ComandoControladorEstudioBiblico {
 
     private final ManejadorCrearEstudioBiblico manejadorCrearEstudioBiblico;
+    private final ManejadorActualizarEstudioBiblico manejadorActualizarEstudioBiblico;
 
-    public ComandoControladorEstudioBiblico(ManejadorCrearEstudioBiblico manejadorCrearEstudioBiblico) {
+    public ComandoControladorEstudioBiblico(ManejadorCrearEstudioBiblico manejadorCrearEstudioBiblico, ManejadorActualizarEstudioBiblico manejadorActualizarEstudioBiblico) {
         this.manejadorCrearEstudioBiblico = manejadorCrearEstudioBiblico;
+        this.manejadorActualizarEstudioBiblico = manejadorActualizarEstudioBiblico;
     }
 
     @PostMapping
     public ComandoRespuesta<Long> crear(@RequestBody ComandoEstudioBiblico comando) {
         return this.manejadorCrearEstudioBiblico.ejecutar(comando);
+    }
+
+    @PutMapping("/{id}")
+    public void actualizar(@RequestBody ComandoEstudioBiblico comando, @PathVariable Long id) {
+        this.manejadorActualizarEstudioBiblico.ejecutar(comando, id);
     }
 }
