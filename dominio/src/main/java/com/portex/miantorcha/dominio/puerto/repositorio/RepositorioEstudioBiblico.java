@@ -1,6 +1,7 @@
 package com.portex.miantorcha.dominio.puerto.repositorio;
 
 import com.portex.miantorcha.dominio.modelo.entidad.EstudioBiblico;
+import com.portex.miantorcha.dominio.modelo.entidad.HistoricoLeccion;
 
 public interface RepositorioEstudioBiblico {
 
@@ -9,9 +10,5 @@ public interface RepositorioEstudioBiblico {
     void actualizar(EstudioBiblico estudioBiblico);
     void eliminar(Long id);
 
-    /**
-     * Consulta auxiliar EXCLUSIVA para las reglas de negocio (no para la vista).
-     * El Servicio de Dominio la necesita para saber qué número de lección calcular.
-     */
-    int contarLeccionesPorEstudio(Long idEstudioBiblico);
+    void registrarLeccion(HistoricoLeccion historicoLeccion);
 }

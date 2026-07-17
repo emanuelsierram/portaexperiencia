@@ -66,10 +66,10 @@ class EstudioBiblicoTest {
         EstudioBiblico estudio = new EstudioBiblicoTestDataBuilder().build();
 
         // Act & Assert
-        IllegalArgumentException excepcionMenor = assertThrows(IllegalArgumentException.class, () -> estudio.asignarLeccionCalculada(0));
-        assertEquals("La lección debe estar entre 1 y 20", excepcionMenor.getMessage());
+        IllegalArgumentException excepcionMenor = assertThrows(IllegalArgumentException.class, () -> estudio.asignarLeccionCalculada(-1));
+        assertEquals("La lección debe estar entre 0 y 20", excepcionMenor.getMessage());
 
         IllegalArgumentException excepcionMayor = assertThrows(IllegalArgumentException.class, () -> estudio.asignarLeccionCalculada(21));
-        assertEquals("La lección debe estar entre 1 y 20", excepcionMayor.getMessage());
+        assertEquals("La lección debe estar entre 0 y 20", excepcionMayor.getMessage());
     }
 }

@@ -1,6 +1,7 @@
 package com.portex.miantorcha.infraestructura.controlador.consulta.estudio;
 
 import com.portex.miantorcha.dominio.modelo.dto.DtoEstudioBiblico;
+import com.portex.miantorcha.dominio.modelo.dto.DtoHistoricoLeccion;
 import com.portex.miantorcha.dominio.puerto.dao.DaoEstudioBiblico;
 import org.springframework.stereotype.Component;
 
@@ -23,5 +24,9 @@ public class ManejadorListarEstudioBiblico {
     // Consulta: "mirar todos los estudios bíblicos disponibles con estado por hacer (por dar)"
     public List<DtoEstudioBiblico> consultarDisponiblesPorDar() {
         return this.daoEstudioBiblico.consultarDisponiblesPorDar();
+    }
+
+    public List<DtoHistoricoLeccion> consultarHistoricoLecciones(long idEstudioBiblico){
+        return this.daoEstudioBiblico.consultarHistoricoPorEstudio(idEstudioBiblico);
     }
 }

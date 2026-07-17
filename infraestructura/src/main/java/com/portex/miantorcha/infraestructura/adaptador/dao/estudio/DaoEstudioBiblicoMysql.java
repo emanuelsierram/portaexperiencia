@@ -2,6 +2,7 @@ package com.portex.miantorcha.infraestructura.adaptador.dao.estudio;
 
 import com.portex.compartido.infraestructura.jbdc.CustomNamedParameterJdbcTemplate;
 import com.portex.miantorcha.dominio.modelo.dto.DtoEstudioBiblico;
+import com.portex.miantorcha.dominio.modelo.dto.DtoHistoricoLeccion;
 import com.portex.miantorcha.dominio.puerto.dao.DaoEstudioBiblico;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -45,5 +46,17 @@ public class DaoEstudioBiblicoMysql implements DaoEstudioBiblico {
 
         List<DtoEstudioBiblico> resultados = this.jdbcTemplate.getNamedParameterJdbcTemplate().query(sql, parametros, new MapeoEstudioBiblico());
         return resultados.isEmpty() ? null : resultados.get(0);
+    }
+
+    @Override
+    public List<DtoHistoricoLeccion> consultarHistoricoPorEstudio(Long idEstudioBiblico) {
+        String sql = "SELECT id, contador_semana, id_estudio_biblico, fecha_estudio, id_actividad " +
+                "FROM historico_lecciones WHERE id_estudio_biblico = :idEstudioBiblico " +
+                "ORDER BY contador_semana ASC";
+
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("idEstudioBiblico", idEstudioBiblico);
+
+        return this.jdbcTemplate.getNamedParameterJdbcTemplate().query(sql, parametros, new MapeoHistoricoLeccion());
     }
 }

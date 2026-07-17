@@ -2,6 +2,7 @@ package com.portex.miantorcha.infraestructura.adaptador.repositorio;
 
 import com.portex.compartido.infraestructura.jbdc.CustomNamedParameterJdbcTemplate;
 import com.portex.miantorcha.dominio.modelo.entidad.EstudioBiblico;
+import com.portex.miantorcha.dominio.modelo.entidad.HistoricoLeccion;
 import com.portex.miantorcha.dominio.puerto.repositorio.RepositorioEstudioBiblico;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -41,11 +42,10 @@ public class RepositorioEstudioBiblicoMysql implements RepositorioEstudioBiblico
     }
 
     @Override
-    public int contarLeccionesPorEstudio(Long idEstudioBiblico) {
-        String sql = "SELECT COUNT(*) FROM mi_antorcha.historico_lecciones WHERE id_estudio_biblico = :idEstudioBiblico";
-        MapSqlParameterSource parametros = new MapSqlParameterSource();
-        parametros.addValue("idEstudioBiblico", idEstudioBiblico);
-        Integer cantidad = this.jdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(sql, parametros, Integer.class);
-        return cantidad != null ? cantidad : 0;
+    public void registrarLeccion(HistoricoLeccion historicoLeccion) {
+        String sql = "INSERT INTO historico_lecciones (contador_semana, id_estudio_biblico, fecha_estudio, id_actividad) " +
+                "VALUES (:contadorSemana, :idEstudioBiblico, :fechaEstudio, :idActividad)";
+
+        this.jdbcTemplate.crear(historicoLeccion, sql);
     }
 }

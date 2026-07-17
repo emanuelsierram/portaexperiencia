@@ -36,6 +36,7 @@ public class ConfiguracionSeguridadMA {
                         .requestMatchers(HttpMethod.POST, "/miembros").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/estudios-biblicos/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/estudios-biblicos/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/estudios-biblicos/lecciones").authenticated()
                         .anyRequest().authenticated()
                 )
                 // Reutilizamos tu filtro JWT existente

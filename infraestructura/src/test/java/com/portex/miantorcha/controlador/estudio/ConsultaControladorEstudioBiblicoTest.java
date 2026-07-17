@@ -3,6 +3,7 @@ package com.portex.miantorcha.controlador.estudio;
 import com.portex.ApplicationMock;
 import com.portex.compartido.infraestructura.seguridad.jwt.JwtTokenManager;
 import com.portex.miantorcha.dominio.modelo.dto.DtoEstudioBiblico;
+import com.portex.miantorcha.dominio.modelo.dto.DtoHistoricoLeccion;
 import com.portex.miantorcha.infraestructura.controlador.consulta.estudio.ConsultaControladorEstudioBiblico;
 import com.portex.miantorcha.infraestructura.controlador.consulta.estudio.ManejadorListarEstudioBiblico;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,7 +37,6 @@ public class ConsultaControladorEstudioBiblicoTest {
     @Autowired
     private MockMvc mockMvc;
 
-    // Sustituimos las sentencias @Sql simulando directamente el Manejador de la consulta
     @MockBean
     private ManejadorListarEstudioBiblico manejadorListarEstudioBiblico;
 
@@ -62,7 +63,6 @@ public class ConsultaControladorEstudioBiblicoTest {
 
         List<DtoEstudioBiblico> respuestaSimulada = Arrays.asList(dto1, dto2);
 
-        // Configuramos el mock de la capa superior para no requerir base de datos
         when(manejadorListarEstudioBiblico.consultarActualesPorMiembro(idUsuarioAsignado))
                 .thenReturn(respuestaSimulada);
 
@@ -95,5 +95,35 @@ public class ConsultaControladorEstudioBiblicoTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].id").value(10));
+    }
+
+    @Test
+    void consultarHistoricoLeccionesExitoso() throws Exception {
+        // Arrange
+        long idEstudio = 15L;
+
+        DtoHistoricoLeccion leccion = new DtoHistoricoLeccion(
+                100L,
+                1,
+                idEstudio,
+                LocalDateTime.now(),
+                99L
+        );
+
+        List<DtoHistoricoLeccion> respuestaSimulada = List.of(leccion);
+
+        when(manejadorListarEstudioBiblico.consultarHistoricoLecciones(idEstudio))
+                .thenReturn(respuestaSimulada);
+
+        // Act & Assert
+        mockMvc.perform(get("/api/estudios-biblicos/" + idEstudio + "/lecciones")
+                        .header("Authorization", "Bearer " + this.tokenPrueba)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].id").value(100))
+                .andExpect(jsonPath("$[0].contadorSemana").value(1))
+                .andExpect(jsonPath("$[0].idEstudioBiblico").value(15))
+                .andExpect(jsonPath("$[0].idActividad").value(99));
     }
 }

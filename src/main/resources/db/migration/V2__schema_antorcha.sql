@@ -32,5 +32,6 @@ CREATE TABLE mi_antorcha.historico_lecciones (
     contador_semana INT NOT NULL,
     id_estudio_biblico BIGINT NOT NULL,
     fecha_estudio DATETIME NOT NULL,
-    id_actividad BIGINT NOT NULL
+    id_actividad BIGINT NOT NULL,
+    CONSTRAINT fk_historico_estudio FOREIGN KEY (id_estudio_biblico) REFERENCES estudio_biblico(id) ON DELETE CASCADE
 );

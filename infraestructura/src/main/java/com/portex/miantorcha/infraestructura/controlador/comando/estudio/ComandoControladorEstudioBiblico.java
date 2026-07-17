@@ -10,9 +10,12 @@ public class ComandoControladorEstudioBiblico {
     private final ManejadorCrearEstudioBiblico manejadorCrearEstudioBiblico;
     private final ManejadorActualizarEstudioBiblico manejadorActualizarEstudioBiblico;
 
-    public ComandoControladorEstudioBiblico(ManejadorCrearEstudioBiblico manejadorCrearEstudioBiblico, ManejadorActualizarEstudioBiblico manejadorActualizarEstudioBiblico) {
+    private final ManejadorRegistrarLeccion manejadorRegistrarLeccion;
+
+    public ComandoControladorEstudioBiblico(ManejadorCrearEstudioBiblico manejadorCrearEstudioBiblico, ManejadorActualizarEstudioBiblico manejadorActualizarEstudioBiblico, ManejadorRegistrarLeccion manejadorRegistrarLeccion) {
         this.manejadorCrearEstudioBiblico = manejadorCrearEstudioBiblico;
         this.manejadorActualizarEstudioBiblico = manejadorActualizarEstudioBiblico;
+        this.manejadorRegistrarLeccion = manejadorRegistrarLeccion;
     }
 
     @PostMapping
@@ -23,5 +26,10 @@ public class ComandoControladorEstudioBiblico {
     @PutMapping("/{id}")
     public void actualizar(@RequestBody ComandoEstudioBiblico comando, @PathVariable Long id) {
         this.manejadorActualizarEstudioBiblico.ejecutar(comando, id);
+    }
+
+    @PostMapping("/lecciones")
+    public ComandoRespuesta<Long> registrarLeccion(@RequestBody ComandoHistoricoLeccion comando) {
+        return this.manejadorRegistrarLeccion.ejecutar(comando);
     }
 }

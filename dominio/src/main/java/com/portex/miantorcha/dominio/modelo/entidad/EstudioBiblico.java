@@ -40,8 +40,8 @@ public class EstudioBiblico {
     // Método para inyectar el valor calculado de la lección tras aplicar la lógica
     public void asignarLeccionCalculada(Integer leccionCalculada) {
         ValidadorArgumento.validarObligatorio(leccionCalculada, "La lección calculada no puede ser nula");
-        if (leccionCalculada < 1 || leccionCalculada > 20) {
-            throw new IllegalArgumentException("La lección debe estar entre 1 y 20");
+        if (leccionCalculada < 0 || leccionCalculada > 20) {
+            throw new IllegalArgumentException("La lección debe estar entre 0 y 20");
         }
         this.leccion = leccionCalculada;
     }

@@ -1,6 +1,9 @@
 package com.portex.miantorcha.dominio.puerto.dao;
 
 import com.portex.miantorcha.dominio.modelo.dto.DtoEstudioBiblico;
+import com.portex.miantorcha.dominio.modelo.dto.DtoHistoricoLeccion;
+import com.portex.miantorcha.dominio.modelo.entidad.HistoricoLeccion;
+
 import java.util.List;
 
 public interface DaoEstudioBiblico {
@@ -21,4 +24,6 @@ public interface DaoEstudioBiblico {
      * Consulta general de solo lectura.
      */
     DtoEstudioBiblico consultarPorId(Long id);
+
+    List<DtoHistoricoLeccion> consultarHistoricoPorEstudio(Long idEstudioBiblico);
 }

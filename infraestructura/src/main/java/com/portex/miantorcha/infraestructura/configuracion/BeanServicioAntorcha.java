@@ -5,6 +5,7 @@ import com.portex.miantorcha.dominio.puerto.repositorio.RepositorioEstudioBiblic
 import com.portex.miantorcha.dominio.puerto.repositorio.RepositorioMiembro;
 import com.portex.miantorcha.dominio.servicio.estudio.ServicioActualizarEstudioBiblico;
 import com.portex.miantorcha.dominio.servicio.estudio.ServicioCrearEstudioBiblico;
+import com.portex.miantorcha.dominio.servicio.estudio.ServicioRegistrarLeccionEstudio;
 import com.portex.miantorcha.dominio.servicio.miembro.ServicioActualizarMiembro;
 import com.portex.miantorcha.dominio.servicio.miembro.ServicioCrearMiembro;
 import com.portex.miantorcha.dominio.servicio.miembro.ServicioEliminarMiembro;
@@ -35,5 +36,10 @@ public class BeanServicioAntorcha {
     @Bean
     public ServicioActualizarEstudioBiblico servicioActualizarEstudioBiblico(RepositorioEstudioBiblico repositorioEstudioBiblico, DaoEstudioBiblico daoEstudioBiblico) {
         return new ServicioActualizarEstudioBiblico(repositorioEstudioBiblico, daoEstudioBiblico);
+    }
+
+    @Bean
+    public ServicioRegistrarLeccionEstudio servicioRegistrarLeccionEstudio(RepositorioEstudioBiblico repositorioEstudioBiblico, DaoEstudioBiblico daoEstudioBiblico) {
+        return new ServicioRegistrarLeccionEstudio(repositorioEstudioBiblico, daoEstudioBiblico);
     }
 }

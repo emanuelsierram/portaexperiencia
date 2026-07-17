@@ -38,6 +38,11 @@ public class EstudioBiblicoTestDataBuilder {
         return this;
     }
 
+    public EstudioBiblicoTestDataBuilder conId(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public EstudioBiblico build() {
         return new EstudioBiblico(id, nombrePersona, telefonoPersona, direccionPersona,
                 estado, idUsuarioAsignado, personaQueReporta, idGrupo);
