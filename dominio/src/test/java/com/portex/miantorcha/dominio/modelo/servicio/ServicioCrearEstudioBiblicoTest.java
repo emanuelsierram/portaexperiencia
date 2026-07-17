@@ -32,7 +32,7 @@ class ServicioCrearEstudioBiblicoTest {
         servicio.ejecutar(estudio);
 
         // Assert
-        assertEquals(1, estudio.getLeccion(), "Al crear un nuevo estudio bíblico, la lección por defecto debe ser 1");
+        assertEquals(0, estudio.getLeccion(), "Al crear un nuevo estudio bíblico, la lección por defecto debe ser 0");
 
         verify(repositorioMock, times(1)).crear(estudio);
     }

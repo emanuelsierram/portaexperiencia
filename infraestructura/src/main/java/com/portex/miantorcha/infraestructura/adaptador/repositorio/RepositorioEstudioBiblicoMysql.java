@@ -17,10 +17,10 @@ public class RepositorioEstudioBiblicoMysql implements RepositorioEstudioBiblico
     }
 
     @Override
-    public void crear(EstudioBiblico estudioBiblico) {
-        String sql = "INSERT INTO mi_antorcha.estudio_biblico (nombre_persona, telefono_persona, direccion_persona, estado, leccion, id_usuario_asignado, persona_que_reporta, id_grupo) " +
-                "VALUES (:nombrePersona, :telefonoPersona, :direccionPersona, :estado, :leccion, :idUsuarioAsignado, :personaQueReporta, :idGrupo)";
-        this.jdbcTemplate.crear(estudioBiblico, sql);
+    public Long crear(EstudioBiblico estudioBiblico) {
+        String sql = "INSERT INTO mi_antorcha.estudio_biblico (id, nombre_persona, telefono_persona, direccion_persona, estado, leccion, id_usuario_asignado, persona_que_reporta, id_grupo) " +
+                "VALUES (:id, :nombrePersona, :telefonoPersona, :direccionPersona, :estado, :leccion, :idUsuarioAsignado, :personaQueReporta, :idGrupo)";
+        return this.jdbcTemplate.crear(estudioBiblico, sql);
     }
 
     @Override
@@ -43,8 +43,8 @@ public class RepositorioEstudioBiblicoMysql implements RepositorioEstudioBiblico
 
     @Override
     public void registrarLeccion(HistoricoLeccion historicoLeccion) {
-        String sql = "INSERT INTO historico_lecciones (contador_semana, id_estudio_biblico, fecha_estudio, id_actividad) " +
-                "VALUES (:contadorSemana, :idEstudioBiblico, :fechaEstudio, :idActividad)";
+        String sql = "INSERT INTO mi_antorcha.historico_lecciones (id, contador_semana, id_estudio_biblico, fecha_estudio, id_actividad) " +
+                "VALUES (:id, :contadorSemana, :idEstudioBiblico, :fechaEstudio, :idActividad)";
 
         this.jdbcTemplate.crear(historicoLeccion, sql);
     }

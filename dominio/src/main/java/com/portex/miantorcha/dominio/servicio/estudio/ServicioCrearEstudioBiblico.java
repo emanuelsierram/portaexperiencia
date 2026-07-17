@@ -11,9 +11,9 @@ public class ServicioCrearEstudioBiblico {
         this.repositorioEstudioBiblico = repositorioEstudioBiblico;
     }
 
-    public void ejecutar(EstudioBiblico estudioBiblico) {
-        estudioBiblico.asignarLeccionCalculada(1);
+    public Long ejecutar(EstudioBiblico estudioBiblico) {
+        estudioBiblico.asignarLeccionCalculada(0);
 
-        this.repositorioEstudioBiblico.crear(estudioBiblico);
+        return this.repositorioEstudioBiblico.crear(estudioBiblico);
     }
 }

@@ -6,7 +6,7 @@ import com.portex.miantorcha.dominio.modelo.entidad.HistoricoLeccion;
 public interface RepositorioEstudioBiblico {
 
     // Comandos de Escritura (Reciben la Entidad de Dominio)
-    void crear(EstudioBiblico estudioBiblico);
+    Long crear(EstudioBiblico estudioBiblico);
     void actualizar(EstudioBiblico estudioBiblico);
     void eliminar(Long id);
 
