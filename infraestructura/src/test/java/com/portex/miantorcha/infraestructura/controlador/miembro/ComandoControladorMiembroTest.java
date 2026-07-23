@@ -1,4 +1,4 @@
-package com.portex.miantorcha.controlador.miembro;
+package com.portex.miantorcha.infraestructura.controlador.miembro;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portex.compartido.aplicacion.ComandoRespuesta;

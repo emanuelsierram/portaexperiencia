@@ -1,4 +1,4 @@
-package com.portex.miantorcha.controlador.estudio;
+package com.portex.miantorcha.infraestructura.controlador.estudio;
 
 import com.portex.ApplicationMock;
 import com.portex.compartido.infraestructura.seguridad.jwt.JwtTokenManager;

@@ -1,4 +1,4 @@
-package com.portex.miantorcha.controlador.estudio;
+package com.portex.miantorcha.infraestructura.controlador.estudio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

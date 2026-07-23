@@ -9,6 +9,5 @@ public interface RepositorioMiembro {
     void actualizar(Miembro miembro);
     void eliminar(Long id);
     boolean existeTelefono(String telefono);
-    List<DtoMiembro> listar();
-    DtoMiembro consultarPorId(Long id);
+
 }

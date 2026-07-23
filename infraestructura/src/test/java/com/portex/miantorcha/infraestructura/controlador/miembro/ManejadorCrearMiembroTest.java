@@ -1,4 +1,4 @@
-package com.portex.miantorcha.controlador.miembro;
+package com.portex.miantorcha.infraestructura.controlador.miembro;
 
 import com.portex.compartido.aplicacion.ComandoRespuesta;
 import com.portex.compartido.dominio.modelo.dto.DtoUsuario;

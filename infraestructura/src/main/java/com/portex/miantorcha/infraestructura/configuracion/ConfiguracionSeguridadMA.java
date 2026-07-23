@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -14,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableMethodSecurity
 public class ConfiguracionSeguridadMA {
 
     private final JwtCustomFilter jwtCustomFilter;
@@ -34,6 +36,8 @@ public class ConfiguracionSeguridadMA {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/miembros").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/miembros").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/miembros/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/estudios-biblicos/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/estudios-biblicos/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/estudios-biblicos/lecciones").authenticated()

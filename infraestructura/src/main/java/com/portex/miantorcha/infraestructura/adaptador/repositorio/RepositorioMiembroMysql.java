@@ -45,15 +45,4 @@ public class RepositorioMiembroMysql implements RepositorioMiembro {
         Integer count = this.customJdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(SQL_EXISTE_TELEFONO, parametros, Integer.class);
         return count != null && count > 0;
     }
-
-    @Override
-    public List<DtoMiembro> listar() {
-        // Aquí usarías tu MapeoMiembro implementando RowMapper
-        return null;
-    }
-
-    @Override
-    public DtoMiembro consultarPorId(Long id) {
-        return null;
-    }
 }
