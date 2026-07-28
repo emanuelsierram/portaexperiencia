@@ -12,6 +12,8 @@ import java.util.List;
 @Repository
 public class DaoEstudioBiblicoMysql implements DaoEstudioBiblico {
 
+    private static final String SQL_EXISTE_TELEFONO = "SELECT COUNT(1) FROM mi_antorcha.estudio_biblico WHERE telefono_persona = :telefonoPersona";
+
     private final CustomNamedParameterJdbcTemplate jdbcTemplate;
 
     public DaoEstudioBiblicoMysql(CustomNamedParameterJdbcTemplate jdbcTemplate) {
@@ -46,6 +48,13 @@ public class DaoEstudioBiblicoMysql implements DaoEstudioBiblico {
 
         List<DtoEstudioBiblico> resultados = this.jdbcTemplate.getNamedParameterJdbcTemplate().query(sql, parametros, new MapeoEstudioBiblico());
         return resultados.isEmpty() ? null : resultados.get(0);
+    }
+
+    @Override
+    public boolean existeTelefono(String telefonoPersona) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource("telefonoPersona", telefonoPersona);
+        Integer count = this.jdbcTemplate.getNamedParameterJdbcTemplate().queryForObject(SQL_EXISTE_TELEFONO, parametros, Integer.class);
+        return count != null && count > 0;
     }
 
     @Override

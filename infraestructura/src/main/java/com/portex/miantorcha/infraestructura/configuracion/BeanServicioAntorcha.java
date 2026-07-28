@@ -29,8 +29,8 @@ public class BeanServicioAntorcha {
     }
 
     @Bean
-    public ServicioCrearEstudioBiblico servicioCrearEstudioBiblico(RepositorioEstudioBiblico repositorioEstudioBiblico) {
-        return new ServicioCrearEstudioBiblico(repositorioEstudioBiblico);
+    public ServicioCrearEstudioBiblico servicioCrearEstudioBiblico(RepositorioEstudioBiblico repositorioEstudioBiblico, DaoEstudioBiblico daoEstudioBiblico) {
+        return new ServicioCrearEstudioBiblico(daoEstudioBiblico, repositorioEstudioBiblico);
     }
 
     @Bean

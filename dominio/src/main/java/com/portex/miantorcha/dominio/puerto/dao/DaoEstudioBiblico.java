@@ -25,5 +25,7 @@ public interface DaoEstudioBiblico {
      */
     DtoEstudioBiblico consultarPorId(Long id);
 
+    boolean existeTelefono(String telefonoPersona);
+
     List<DtoHistoricoLeccion> consultarHistoricoPorEstudio(Long idEstudioBiblico);
 }
