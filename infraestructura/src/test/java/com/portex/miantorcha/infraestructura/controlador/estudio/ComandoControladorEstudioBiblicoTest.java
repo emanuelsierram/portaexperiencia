@@ -10,6 +10,7 @@ import com.portex.miantorcha.infraestructura.controlador.comando.estudio.Comando
 import com.portex.miantorcha.infraestructura.controlador.comando.estudio.ComandoEstudioBiblico;
 import com.portex.miantorcha.infraestructura.controlador.comando.estudio.ComandoHistoricoLeccion;
 import com.portex.miantorcha.infraestructura.controlador.comando.estudio.ManejadorActualizarEstudioBiblico;
+import com.portex.miantorcha.infraestructura.controlador.comando.estudio.ManejadorEliminarEstudioBiblico;
 import com.portex.miantorcha.infraestructura.controlador.comando.estudio.ManejadorRegistrarLeccion;
 import com.portex.miantorcha.testdatabuilder.ComandoEstudioBiblicoTestDataBuilder;
 import org.junit.jupiter.api.Assertions;
@@ -32,6 +33,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -53,6 +55,9 @@ public class ComandoControladorEstudioBiblicoTest {
 
     @MockBean
     private ManejadorActualizarEstudioBiblico manejadorActualizarEstudioBiblico;
+
+    @MockBean
+    private ManejadorEliminarEstudioBiblico manejadorEliminarEstudioBiblico;
 
     @MockBean
     private ManejadorRegistrarLeccion manejadorRegistrarLeccion;
@@ -114,6 +119,20 @@ public class ComandoControladorEstudioBiblicoTest {
                 .andExpect(status().isOk());
 
         verify(manejadorActualizarEstudioBiblico, times(1)).ejecutar(any(ComandoEstudioBiblico.class), eq(idEstudio));
+    }
+
+    @Test
+    void eliminarEstudioBiblicoExitoso() throws Exception {
+        // Arrange
+        Long idEstudio = 1L;
+
+        // Act & Assert
+        mockMvc.perform(delete("/api/estudios-biblicos/" + idEstudio)
+                        .header("Authorization", "Bearer " + this.tokenPrueba)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(manejadorEliminarEstudioBiblico, times(1)).ejecutar(eq(idEstudio));
     }
 
     @Test

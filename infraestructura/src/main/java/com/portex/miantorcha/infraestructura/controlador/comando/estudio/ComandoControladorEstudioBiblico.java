@@ -9,12 +9,14 @@ public class ComandoControladorEstudioBiblico {
 
     private final ManejadorCrearEstudioBiblico manejadorCrearEstudioBiblico;
     private final ManejadorActualizarEstudioBiblico manejadorActualizarEstudioBiblico;
+    private final ManejadorEliminarEstudioBiblico manejadorEliminarEstudioBiblico;
 
     private final ManejadorRegistrarLeccion manejadorRegistrarLeccion;
 
-    public ComandoControladorEstudioBiblico(ManejadorCrearEstudioBiblico manejadorCrearEstudioBiblico, ManejadorActualizarEstudioBiblico manejadorActualizarEstudioBiblico, ManejadorRegistrarLeccion manejadorRegistrarLeccion) {
+    public ComandoControladorEstudioBiblico(ManejadorCrearEstudioBiblico manejadorCrearEstudioBiblico, ManejadorActualizarEstudioBiblico manejadorActualizarEstudioBiblico, ManejadorEliminarEstudioBiblico manejadorEliminarEstudioBiblico, ManejadorRegistrarLeccion manejadorRegistrarLeccion) {
         this.manejadorCrearEstudioBiblico = manejadorCrearEstudioBiblico;
         this.manejadorActualizarEstudioBiblico = manejadorActualizarEstudioBiblico;
+        this.manejadorEliminarEstudioBiblico = manejadorEliminarEstudioBiblico;
         this.manejadorRegistrarLeccion = manejadorRegistrarLeccion;
     }
 
@@ -26,6 +28,11 @@ public class ComandoControladorEstudioBiblico {
     @PutMapping("/{id}")
     public void actualizar(@RequestBody ComandoEstudioBiblico comando, @PathVariable Long id) {
         this.manejadorActualizarEstudioBiblico.ejecutar(comando, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable Long id) {
+        this.manejadorEliminarEstudioBiblico.ejecutar(id);
     }
 
     @PostMapping("/lecciones")
