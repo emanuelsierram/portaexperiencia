@@ -8,4 +8,5 @@ public interface DaoMiembro {
 
     List<DtoMiembro> listar();
     DtoMiembro consultarPorId(Long id);
+    DtoMiembro consultarPorUsuarioId(String usuarioId);
 }

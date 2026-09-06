@@ -2,8 +2,9 @@ package com.portex.miantorcha.infraestructura.controlador.consulta.estudio;
 
 import com.portex.miantorcha.dominio.modelo.dto.DtoEstudioBiblico;
 import com.portex.miantorcha.dominio.modelo.dto.DtoHistoricoLeccion;
-import com.portex.miantorcha.dominio.puerto.dao.DaoEstudioBiblico;
-import com.portex.miantorcha.dominio.puerto.repositorio.RepositorioEstudioBiblico;
+import com.portex.miantorcha.infraestructura.configuracion.SeguridadEstudio;
+import com.portex.miantorcha.infraestructura.configuracion.SeguridadMiembro;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,16 +14,17 @@ import java.util.List;
 public class ConsultaControladorEstudioBiblico {
 
     private final ManejadorListarEstudioBiblico manejadorListarEstudioBiblico;
+    private final SeguridadMiembro seguridadMiembro;
+    private final SeguridadEstudio seguridadEstudio;
 
-    private final DaoEstudioBiblico daoEstudioBiblico;
-
-
-    public ConsultaControladorEstudioBiblico(ManejadorListarEstudioBiblico manejadorListarEstudioBiblico, RepositorioEstudioBiblico repositorioEstudioBiblico, DaoEstudioBiblico daoEstudioBiblico) {
+    public ConsultaControladorEstudioBiblico(ManejadorListarEstudioBiblico manejadorListarEstudioBiblico, SeguridadMiembro seguridadMiembro, SeguridadEstudio seguridadEstudio) {
         this.manejadorListarEstudioBiblico = manejadorListarEstudioBiblico;
-        this.daoEstudioBiblico = daoEstudioBiblico;
+        this.seguridadMiembro = seguridadMiembro;
+        this.seguridadEstudio = seguridadEstudio;
     }
 
     @GetMapping("/actuales/{idUsuarioAsignado}")
+    @PreAuthorize("@seguridadMiembro.puedeConsultarPorId(#idUsuarioAsignado, authentication)")
     public List<DtoEstudioBiblico> consultarActualesPorMiembro(@PathVariable Long idUsuarioAsignado) {
         return this.manejadorListarEstudioBiblico.consultarActualesPorMiembro(idUsuarioAsignado);
     }
@@ -31,6 +33,7 @@ public class ConsultaControladorEstudioBiblico {
         return this.manejadorListarEstudioBiblico.consultarDisponiblesPorDar();
     }
     @GetMapping("/{idEstudioBiblico}/lecciones")
+    @PreAuthorize("@seguridadEstudio.puedeConsultarLeccionesPorEstudio(#idEstudioBiblico, authentication)")
     public List<DtoHistoricoLeccion> consultarHistoricoLecciones(@PathVariable Long idEstudioBiblico) {
         return this.manejadorListarEstudioBiblico.consultarHistoricoLecciones(idEstudioBiblico);
     }

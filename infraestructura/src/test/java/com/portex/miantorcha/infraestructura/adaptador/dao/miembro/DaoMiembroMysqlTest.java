@@ -53,4 +53,21 @@ class DaoMiembroMysqlTest {
         assertEquals(2L, resultado.getId());
         assertEquals("Maria", resultado.getNombres());
     }
+
+    @Test
+    void consultarPorUsuarioIdDebeRetornarUnMiembro() {
+        CustomNamedParameterJdbcTemplate jdbcTemplate = Mockito.mock(CustomNamedParameterJdbcTemplate.class);
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = Mockito.mock(NamedParameterJdbcTemplate.class);
+        when(jdbcTemplate.getNamedParameterJdbcTemplate()).thenReturn(namedParameterJdbcTemplate);
+
+        DtoMiembro miembro = new DtoMiembro(9L, "3002539848", "Maria", "Lopez", "maria@test.com", "3002223344", "miembro", 11L, 21L, LocalDateTime.now(), LocalDateTime.now());
+        when(namedParameterJdbcTemplate.query(eq("SELECT id_miembro, usuario_id, nombres, apellidos, email, telefono, perfil, id_grupo_pequeno, id_anciano, fecha_creacion, fecha_actualizacion FROM mi_antorcha.miembros WHERE usuario_id = :usuarioId"), any(MapSqlParameterSource.class), any(RowMapper.class))).thenReturn(List.of(miembro));
+
+        DaoMiembroMysql dao = new DaoMiembroMysql(jdbcTemplate);
+
+        DtoMiembro resultado = dao.consultarPorUsuarioId("3002539848");
+
+        assertEquals(9L, resultado.getId());
+        assertEquals("3002539848", resultado.getUsuarioId());
+    }
 }

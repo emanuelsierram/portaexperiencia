@@ -28,7 +28,7 @@ public class ConfiguracionSeguridadMA {
     public SecurityFilterChain filterChainAntorcha(HttpSecurity http) throws Exception {
         http
                 // Indicamos que esta cadena SOLO aplica para las rutas de Mi Antorcha
-                .securityMatcher("/miembros/**")
+                .securityMatcher("/miembros/**", "/api/estudios-biblicos/**")
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -4,6 +4,8 @@ import com.portex.ApplicationMock;
 import com.portex.compartido.infraestructura.seguridad.jwt.JwtTokenManager;
 import com.portex.miantorcha.dominio.modelo.dto.DtoEstudioBiblico;
 import com.portex.miantorcha.dominio.modelo.dto.DtoHistoricoLeccion;
+import com.portex.miantorcha.infraestructura.configuracion.SeguridadEstudio;
+import com.portex.miantorcha.infraestructura.configuracion.SeguridadMiembro;
 import com.portex.miantorcha.infraestructura.controlador.consulta.estudio.ConsultaControladorEstudioBiblico;
 import com.portex.miantorcha.infraestructura.controlador.consulta.estudio.ManejadorListarEstudioBiblico;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +25,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -40,6 +44,12 @@ public class ConsultaControladorEstudioBiblicoTest {
     @MockBean
     private ManejadorListarEstudioBiblico manejadorListarEstudioBiblico;
 
+    @MockBean
+    private SeguridadMiembro seguridadMiembro;
+
+    @MockBean
+    private SeguridadEstudio seguridadEstudio;
+
     private String tokenPrueba;
 
     @BeforeEach
@@ -52,6 +62,8 @@ public class ConsultaControladorEstudioBiblicoTest {
     void consultarActualesPorMiembroExitoso() throws Exception {
         // Arrange
         Long idUsuarioAsignado = 123L;
+
+        when(seguridadMiembro.puedeConsultarPorId(eq(idUsuarioAsignado), any())).thenReturn(true);
 
         DtoEstudioBiblico dto1 = new DtoEstudioBiblico();
         dto1.setId(1L);
@@ -101,6 +113,8 @@ public class ConsultaControladorEstudioBiblicoTest {
     void consultarHistoricoLeccionesExitoso() throws Exception {
         // Arrange
         long idEstudio = 15L;
+
+        when(seguridadEstudio.puedeConsultarLeccionesPorEstudio(eq(idEstudio), any())).thenReturn(true);
 
         DtoHistoricoLeccion leccion = new DtoHistoricoLeccion(
                 100L,

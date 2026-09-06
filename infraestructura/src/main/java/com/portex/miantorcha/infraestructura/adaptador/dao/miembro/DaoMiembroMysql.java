@@ -13,6 +13,7 @@ public class DaoMiembroMysql implements DaoMiembro {
 
     private static final String SQL_LISTAR = "SELECT id_miembro, usuario_id, nombres, apellidos, email, telefono, perfil, id_grupo_pequeno, id_anciano, fecha_creacion, fecha_actualizacion FROM mi_antorcha.miembros";
     private static final String SQL_CONSULTAR_POR_ID = "SELECT id_miembro, usuario_id, nombres, apellidos, email, telefono, perfil, id_grupo_pequeno, id_anciano, fecha_creacion, fecha_actualizacion FROM mi_antorcha.miembros WHERE id_miembro = :id";
+    private static final String SQL_CONSULTAR_POR_USUARIO_ID = "SELECT id_miembro, usuario_id, nombres, apellidos, email, telefono, perfil, id_grupo_pequeno, id_anciano, fecha_creacion, fecha_actualizacion FROM mi_antorcha.miembros WHERE usuario_id = :usuarioId";
 
     private final CustomNamedParameterJdbcTemplate jdbcTemplate;
 
@@ -31,6 +32,15 @@ public class DaoMiembroMysql implements DaoMiembro {
         parametros.addValue("id", id);
 
         List<DtoMiembro> resultados = this.jdbcTemplate.getNamedParameterJdbcTemplate().query(SQL_CONSULTAR_POR_ID, parametros, new MapeoMiembro());
+        return resultados.isEmpty() ? null : resultados.get(0);
+    }
+
+    @Override
+    public DtoMiembro consultarPorUsuarioId(String usuarioId) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("usuarioId", usuarioId);
+
+        List<DtoMiembro> resultados = this.jdbcTemplate.getNamedParameterJdbcTemplate().query(SQL_CONSULTAR_POR_USUARIO_ID, parametros, new MapeoMiembro());
         return resultados.isEmpty() ? null : resultados.get(0);
     }
 }
